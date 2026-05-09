@@ -837,21 +837,30 @@ h3 {
   gap: 16px;
 }
 
-.service-grid {
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+.services-bento {
+  display: grid;
+  grid-template-columns: minmax(320px, 1.15fr) repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  align-items: stretch;
 }
 
 .service-card,
+.service-system-card,
 .use-grid article {
   position: relative;
-  min-height: 308px;
-  padding: 27px;
+  overflow: hidden;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9));
   box-shadow: var(--shadow-subtle);
   transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.service-card,
+.service-system-card {
+  min-height: 238px;
+  padding: 28px;
 }
 
 .service-card::before,
@@ -863,6 +872,48 @@ h3 {
   border-radius: var(--radius) var(--radius) 0 0;
   background: linear-gradient(90deg, var(--color-accent), var(--color-safe));
   opacity: 0.64;
+}
+
+.service-card-primary {
+  grid-row: span 2;
+  min-height: 370px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: stretch;
+  padding: 32px;
+  color: #ffffff;
+  background:
+    radial-gradient(circle at 92% 12%, rgba(45, 168, 111, 0.23), transparent 30%),
+    radial-gradient(circle at 18% 100%, rgba(21, 147, 180, 0.2), transparent 32%),
+    linear-gradient(135deg, #0d1a28, #142739);
+  box-shadow: var(--shadow-card);
+}
+
+.service-card-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 42px 42px;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+.service-card-body,
+.service-mini-dashboard {
+  position: relative;
+  z-index: 1;
+}
+
+.service-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 28px;
 }
 
 .card-index,
@@ -880,6 +931,46 @@ h3 {
   font-weight: 820;
 }
 
+.service-card .card-index {
+  flex: 0 0 auto;
+  margin-bottom: 0;
+}
+
+.service-label,
+.service-system-card > span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  color: var(--color-ink-soft);
+  background: rgba(21, 147, 180, 0.08);
+  font-size: 0.74rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.service-card-primary .service-label {
+  color: #d8f6fb;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.service-card-primary .card-index {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.service-card-primary h3,
+.service-card-primary p,
+.service-card-primary li {
+  color: #ffffff;
+}
+
+.service-card-primary h3 {
+  max-width: 560px;
+  font-size: clamp(1.45rem, 2.2vw, 2rem);
+}
+
 .service-card p {
   margin-bottom: 18px;
 }
@@ -890,6 +981,11 @@ h3 {
   padding: 0;
   margin: 0;
   list-style: none;
+}
+
+.service-card-primary p {
+  max-width: 590px;
+  color: #d8e6eb;
 }
 
 .service-card li {
@@ -911,8 +1007,103 @@ h3 {
   box-shadow: 0 0 0 4px rgba(45, 168, 111, 0.1);
 }
 
+.service-card-primary li::before {
+  background: #8ee3f1;
+  box-shadow: 0 0 0 4px rgba(142, 227, 241, 0.12);
+}
+
+.service-mini-dashboard {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 190px;
+  padding: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(45, 168, 111, 0.22), transparent 30%),
+    rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.service-mini-dashboard span {
+  color: #9eddeb;
+  font-size: 0.78rem;
+  font-weight: 820;
+  text-transform: uppercase;
+}
+
+.service-mini-dashboard strong {
+  max-width: 180px;
+  color: #ffffff;
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+
+.service-mini-dashboard div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.service-mini-dashboard small,
+.service-flow small {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 10px;
+  border-radius: 999px;
+  color: #dff4f8;
+  background: rgba(255, 255, 255, 0.1);
+  font-weight: 760;
+}
+
+.service-system-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 18px;
+  background:
+    radial-gradient(circle at 100% 0%, rgba(21, 147, 180, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(223, 244, 248, 0.56));
+}
+
+.service-system-card::before {
+  content: "";
+  position: absolute;
+  inset: auto 24px 24px auto;
+  width: 96px;
+  height: 96px;
+  border: 1px solid rgba(21, 147, 180, 0.16);
+  border-radius: 30px;
+  transform: rotate(8deg);
+}
+
+.service-system-card h3 {
+  max-width: 320px;
+  margin-bottom: 0;
+}
+
+.service-system-card p {
+  margin-bottom: 0;
+}
+
+.service-flow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.service-flow small {
+  color: var(--color-accent-deep);
+  background: rgba(255, 255, 255, 0.82);
+}
+
 @media (hover: hover) {
   .service-card:hover,
+  .service-system-card:hover,
   .use-grid article:hover,
   .support-card:hover,
   details:hover {
@@ -1284,11 +1475,21 @@ details p {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .service-grid,
+  .services-bento,
   .use-grid,
   .support-grid,
   .process-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .service-card-primary,
+  .service-system-card {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .service-card-primary {
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 0.72fr);
   }
 
   .process-list::before {
@@ -1388,13 +1589,23 @@ details p {
     padding-top: 30px;
   }
 
-  .service-grid,
+  .services-bento,
   .use-grid,
   .process-list,
   .support-grid,
   .logic-grid,
   .dashboard-hero {
     grid-template-columns: 1fr;
+  }
+
+  .service-card-primary {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .service-card-primary,
+  .service-system-card {
+    grid-column: auto;
   }
 
   .dashboard-status {
@@ -1414,11 +1625,24 @@ details p {
   }
 
   .service-card,
+  .service-system-card,
   .use-grid article,
   .support-card,
   .process-list li {
     min-height: auto;
     padding: 22px;
+  }
+
+  .service-card-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .service-mini-dashboard {
+    min-height: 170px;
+    padding: 16px;
   }
 
   .system-mockup {
